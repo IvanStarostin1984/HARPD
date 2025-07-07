@@ -33,6 +33,7 @@ Copy
 ## 1  Environment
 * Use **Python** (already on Codex base image).
 * If additional packages are required, let Codex generate a `requirements.txt` and ensure `.codex/setup.sh` installs them (`pip install -r requirements.txt`).
+- [x] Initialise `.codex/setup.sh` to install from `requirements.txt`.
 
 ---
 
