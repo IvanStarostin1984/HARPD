@@ -13,7 +13,6 @@ from sklearn.metrics import (
 )
 from sklearn.model_selection import train_test_split
 
-
 def parse_args() -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
@@ -65,11 +64,18 @@ def evaluate_and_plot(model, X_test, y_test, out_dir: Path) -> None:
 
 def main() -> None:
     args = parse_args()
+
     df = load_data(args.data)
     X_train, X_test, y_train, y_test = preprocess(df)
     model = train_model(X_train, y_train)
     evaluate_and_plot(model, X_test, y_test, Path(args.out))
 
+    data_path = Path(args.data)
+    if not data_path.is_file():
+        print(f"Dataset not found: {data_path}", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"Placeholder - dataset: {data_path}, output directory: {args.out}")
 
 if __name__ == "__main__":
     main()
