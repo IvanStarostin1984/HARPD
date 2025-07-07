@@ -84,3 +84,4 @@ Slides and the written report will be produced manually by the Presentation and 
 
 ## Completed tasks
 * [x] CLI skeleton parses dataset and output path, prints placeholder.
+* [x] Implemented logistic regression pipeline printing metrics and saving confusion matrix.

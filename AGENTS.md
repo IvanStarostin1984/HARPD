@@ -14,7 +14,7 @@ shell: |
 
   # 2. Execute the end‑to‑end pipeline.
   python src/heart_attack_prediction.py \
-         --data data/heart_attack_prediction_dataset.csv \
+         --data tests/data/small_dataset.csv \
          --out  outputs/
 
   # 3. (Optional, fast) style gates – skip gracefully if tools absent.
@@ -45,7 +45,8 @@ shell: |
 | Path                                        | Purpose                                 |
 |---------------------------------------------|-----------------------------------------|
 | `src/heart_attack_prediction.py`            | End‑to‑end ML pipeline *you may decide to break it into several files)                  |
-| `data/heart_attack_prediction_dataset.csv`  | Raw dataset (read‑only)                 |
+| `tests/data/small_dataset.csv`              | Sample dataset for tests               |
+| `data/heart_attack_prediction_dataset.csv`  | Full dataset to be added manually      |
 | `outputs/`                                  | Metrics, plots, confusion matrix        |
 | `.codex/setup.sh`                           | Install packages from `requirements.txt` |
 | `README.md`                                 | Quick‑start instructions                |
