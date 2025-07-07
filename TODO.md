@@ -76,3 +76,6 @@ Copy
 
 ## 6  Out‑of‑scope for this Codex run
 Slides and the written report will be produced manually by the Presentation and Documentation roles.
+
+## Completed tasks
+* [x] CLI skeleton parses dataset and output path, prints placeholder.
