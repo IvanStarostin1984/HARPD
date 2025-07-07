@@ -1,4 +1,6 @@
 import argparse
+import sys
+from pathlib import Path
 
 
 def parse_args() -> argparse.Namespace:
@@ -21,7 +23,12 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    print(f"Placeholder - dataset: {args.data}, output directory: {args.out}")
+    data_path = Path(args.data)
+    if not data_path.is_file():
+        print(f"Dataset not found: {data_path}", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"Placeholder - dataset: {data_path}, output directory: {args.out}")
 
 
 if __name__ == "__main__":

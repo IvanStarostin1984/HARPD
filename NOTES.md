@@ -12,3 +12,4 @@
 * 2025-07-07: added skeleton src/heart_attack_prediction.py 
 parsing --data and --out and printing placeholder. 
 Reason: initial CLI entry point per TODO.
+* 2025-07-07: heart_attack_prediction.py exits with an error when the dataset file is missing. Updated README and AGENTS accordingly.
