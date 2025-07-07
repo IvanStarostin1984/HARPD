@@ -1,8 +1,10 @@
 import subprocess
-
+import sys
 from pathlib import Path
-
 import pandas as pd
+
+
+test_data = Path("tests/data/small_dataset.csv")
 
 
 def test_pipeline(tmp_path: Path) -> None:
@@ -36,11 +38,6 @@ def test_pipeline(tmp_path: Path) -> None:
     for metric in ["Accuracy", "Precision", "Recall", "F1"]:
         assert metric in result.stdout
 
-import sys
-from pathlib import Path
-
-test_data = Path("tests/data/small_dataset.csv")
-
 
 def test_main_runs_and_creates_confusion_matrix(tmp_path):
     out_dir = tmp_path / "outputs"
@@ -59,4 +56,3 @@ def test_main_runs_and_creates_confusion_matrix(tmp_path):
     assert "Recall:" in output
     assert "F1:" in output
     assert (out_dir / "confusion_matrix.png").exists()
-

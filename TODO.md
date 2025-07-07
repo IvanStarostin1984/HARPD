@@ -92,3 +92,4 @@ Slides and the written report will be produced manually by the Presentation and 
   and confusion matrix plus tests.
 * [x] Implemented logistic regression pipeline printing metrics and saving confusion matrix.
 * [x] CLI exits with a clear message when the dataset file is missing.
+* [x] Refactored heart_attack_prediction.py removing duplicate functions and adding dataset existence check at start.

@@ -21,3 +21,4 @@ Reason: initial CLI entry point per TODO.
   Reason: finish core pipeline per TODO and ensure quality with pytest.
 * 2025-07-07: Implemented logistic regression pipeline and added tests with synthetic dataset to verify metrics and confusion matrix output.
 * 2025-07-07: heart_attack_prediction.py exits with an error when the dataset file is missing. Updated README and AGENTS accordingly.
+* 2025-07-08: Refactored heart_attack_prediction.py by restoring clean version from commit 46102266, removing duplicate functions and adding imports for sys and matplotlib. Added dataset file check at program start. Reason: simplify script and ensure confusion matrix is saved reliably.
