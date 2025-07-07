@@ -57,7 +57,7 @@ shell: |
 | `.codex/setup.sh`                           | Install packages from `requirements.txt` |
 | `README.md`                                 | Quick‑start instructions                |
 | `TODO.md` / `NOTES.md`                      | Work plan / engineering log (append‑only)|
-Original_assignment.md and .csv dataset are single sources of truth and are not to be changed.
+docs/original_assignment.md and the .csv dataset are single sources of truth and are not to be changed.
 Original assignment is to be implemented in simplest way fully aligned with original assignment.
 You may create additional folders/files in repo if necessary.
 You may change AGENTS.md/TODO.md/NOTES.md contents if necessary.

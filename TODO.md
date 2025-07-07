@@ -87,6 +87,7 @@ Slides and the written report will be produced manually by the Presentation and 
 
 ## Completed tasks
 * [x] CLI skeleton parses dataset and output path, prints placeholder.
+* [x] Renamed docs/original_assignment to docs/original_assignment.md and updated references.
 * [x] Implemented full pipeline with preprocessing, logistic regression, metrics
   and confusion matrix plus tests.
 * [x] Implemented logistic regression pipeline printing metrics and saving confusion matrix.

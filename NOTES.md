@@ -12,6 +12,8 @@
 * 2025-07-07: added skeleton src/heart_attack_prediction.py 
 parsing --data and --out and printing placeholder. 
 Reason: initial CLI entry point per TODO.
+* 2025-07-07: Renamed docs/original_assignment to docs/original_assignment.md and updated AGENTS references.
+
 * 2025-07-07: Cleaned TODO.md by removing stray lines and updated status to reflect existing CLI skeleton. Next step is implementing logistic regression pipeline.
 
 * 2025-07-08: Implemented preprocessing, train-test split with stratification,
