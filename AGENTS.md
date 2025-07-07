@@ -12,10 +12,16 @@ shell: |
   # 1. Set up Python environment (installs `requirements.txt` if present).
   bash .codex/setup.sh
 
-  # 2. Execute the end‑to‑end pipeline.
-  python src/heart_attack_prediction.py \
-         --data data/heart_attack_prediction_dataset.csv \
-         --out  outputs/
+
+  # 2. Execute the end‑to‑end pipeline if the dataset is present.
+  if [ -f data/heart_attack_prediction_dataset.csv ]; then
+    python src/heart_attack_prediction.py \
+           --data data/heart_attack_prediction_dataset.csv \
+           --out  outputs/
+  else
+    echo "Dataset missing: place data/heart_attack_prediction_dataset.csv" >&2
+  fi
+
 
   # 3. (Optional, fast) style gates – skip gracefully if tools absent.
   if command -v ruff >/dev/null 2>&1;  then ruff check src tests;  fi
@@ -45,7 +51,8 @@ shell: |
 | Path                                        | Purpose                                 |
 |---------------------------------------------|-----------------------------------------|
 | `src/heart_attack_prediction.py`            | End‑to‑end ML pipeline *you may decide to break it into several files)                  |
-| `data/heart_attack_prediction_dataset.csv`  | Raw dataset (read‑only)                 |
+| `tests/data/small_dataset.csv`              | Sample dataset for tests               |
+| `data/heart_attack_prediction_dataset.csv`  | Full dataset to be added manually      |
 | `outputs/`                                  | Metrics, plots, confusion matrix        |
 | `.codex/setup.sh`                           | Install packages from `requirements.txt` |
 | `README.md`                                 | Quick‑start instructions                |
