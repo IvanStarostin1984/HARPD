@@ -26,14 +26,15 @@ Codex should create this lightweight scaffold **before** writing any business lo
 *Data and outputs directories have been created with `.gitkeep`. The dataset
 file must be supplied manually as `data/heart_attack_prediction_dataset.csv`.*
 
-yaml
-Copy
 
 *Feel free to adjust directory names if a clearer structure emerges, but keep the dataset path accurate (`data/…csv`).*
+
+Status (2025-07-07): CLI skeleton exists. Next: implement logistic regression pipeline.
 
 Status (2025-07-08): logistic regression pipeline implemented with tests.
 
 Status (2025-07-07): added dataset existence check in the CLI script. Next: flesh out the pipeline logic.
+
 ---
 
 ## 1  Environment
