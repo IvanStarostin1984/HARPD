@@ -1,11 +1,13 @@
+"""Run a logistic regression pipeline on the heart attack dataset."""
+
+from __future__ import annotations
+
 import argparse
+import sys
 from pathlib import Path
 
-from typing import Tuple
-
+import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     ConfusionMatrixDisplay,
@@ -15,148 +17,65 @@ from sklearn.metrics import (
     recall_score,
 )
 from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import StandardScaler
+
 
 def parse_args() -> argparse.Namespace:
-    """Parse command-line arguments."""
-    parser = argparse.ArgumentParser(
-
-        description="Heart Attack Risk Prediction with logistic regression",
-    )
-    parser.add_argument("--data", required=True, help="Path to dataset CSV")
-    parser.add_argument("--out", required=True, help="Output directory")
-    return parser.parse_args()
-
-
-def load_dataset(path: str) -> pd.DataFrame:
-    """Load CSV into a DataFrame."""
-    return pd.read_csv(path)
-
-
-def split_xy(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
-    """Return features and target column."""
-    target = "output" if "output" in df.columns else "target"
-    if target not in df.columns:
-        target = df.columns[-1]
-    X = df.drop(columns=target)
-    y = df[target]
-    return X, y
-
-
-def make_preprocessor(X: pd.DataFrame) -> ColumnTransformer:
-    """Return a ColumnTransformer for numeric and categorical features."""
-    cat_cols = X.select_dtypes(include=["object", "category"]).columns
-    num_cols = X.select_dtypes(exclude=["object", "category"]).columns
-    num_pipe = Pipeline(
-        [("imputer", SimpleImputer(strategy="median")), ("scaler", StandardScaler())]
-    )
-    cat_pipe = Pipeline(
-        [
-            ("imputer", SimpleImputer(strategy="most_frequent")),
-            ("onehot", OneHotEncoder(handle_unknown="ignore")),
-        ]
-    )
-    return ColumnTransformer([("num", num_pipe, num_cols), ("cat", cat_pipe, cat_cols)])
-
-
-def build_pipeline(X: pd.DataFrame) -> Pipeline:
-    """Create a pipeline with preprocessing and logistic regression."""
-    preprocessor = make_preprocessor(X)
-    return Pipeline(
-        [
-            ("prep", preprocessor),
-            ("clf", LogisticRegression(max_iter=1000, solver="liblinear")),
-        ]
-    )
-
-
-def evaluate(
-    model: Pipeline, X_test: pd.DataFrame, y_test: pd.Series, out_dir: Path
-) -> None:
-    """Print metrics and save confusion matrix."""
-    preds = model.predict(X_test)
-    acc = accuracy_score(y_test, preds)
-    prec = precision_score(y_test, preds)
-    rec = recall_score(y_test, preds)
-    f1 = f1_score(y_test, preds)
-    print(f"Accuracy: {acc:.3f}")
-    print(f"Precision: {prec:.3f}")
-    print(f"Recall: {rec:.3f}")
-    print(f"F1: {f1:.3f}")
-    disp = ConfusionMatrixDisplay.from_predictions(y_test, preds)
-    out_dir.mkdir(parents=True, exist_ok=True)
-    fig_path = out_dir / "confusion_matrix.png"
-    disp.figure_.savefig(fig_path)
-        description="Heart Attack Risk Prediction via logistic regression"
-    )
+    parser = argparse.ArgumentParser(description="Heart Attack Risk Prediction")
     parser.add_argument("--data", required=True, help="Path to dataset CSV")
     parser.add_argument("--out", required=True, help="Directory to store outputs")
     return parser.parse_args()
 
 
-def load_data(path: str) -> pd.DataFrame:
-    """Load dataset from CSV."""
+def load_data(path: Path) -> pd.DataFrame:
     return pd.read_csv(path)
 
 
-def preprocess(df: pd.DataFrame):
-    """Split data and prepare features."""
-    y = df["target"]
-    X = pd.get_dummies(df.drop(columns=["target"]))
-    return train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+def prepare_data(df: pd.DataFrame):
+    X = df.drop(columns=df.columns[-1])
+    y = df[df.columns[-1]]
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    return train_test_split(X_scaled, y, test_size=0.2, random_state=42, stratify=y)
 
 
 def train_model(X_train, y_train) -> LogisticRegression:
-    """Train logistic regression model."""
-    clf = LogisticRegression(max_iter=100)
-    clf.fit(X_train, y_train)
-    return clf
+    model = LogisticRegression(max_iter=1000, solver="liblinear")
+    model.fit(X_train, y_train)
+    return model
 
 
-def evaluate_and_plot(model, X_test, y_test, out_dir: Path) -> None:
-    """Evaluate model, print metrics and save confusion matrix."""
-    y_pred = model.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
-    prec = precision_score(y_test, y_pred, zero_division=0)
-    rec = recall_score(y_test, y_pred, zero_division=0)
-    f1 = f1_score(y_test, y_pred, zero_division=0)
+def evaluate(model: LogisticRegression, X_test, y_test, out_dir: Path) -> None:
+    preds = model.predict(X_test)
+    acc = accuracy_score(y_test, preds)
+    prec = precision_score(y_test, preds, zero_division=0)
+    rec = recall_score(y_test, preds, zero_division=0)
+    f1 = f1_score(y_test, preds, zero_division=0)
     print(f"Accuracy: {acc:.3f}")
     print(f"Precision: {prec:.3f}")
     print(f"Recall: {rec:.3f}")
     print(f"F1: {f1:.3f}")
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
-    plt.tight_layout()
+    ConfusionMatrixDisplay.from_predictions(y_test, preds)
     fig_path = out_dir / "confusion_matrix.png"
+    plt.tight_layout()
     plt.savefig(fig_path)
     plt.close()
 
 
 def main() -> None:
     args = parse_args()
-    df = load_dataset(args.data)
-    X, y = split_xy(df)
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, stratify=y, random_state=42
-    )
-    pipe = build_pipeline(X_train)
-    pipe.fit(X_train, y_train)
-    evaluate(pipe, X_test, y_test, Path(args.out))
-
-
-    df = load_data(args.data)
-    X_train, X_test, y_train, y_test = preprocess(df)
-    model = train_model(X_train, y_train)
-    evaluate_and_plot(model, X_test, y_test, Path(args.out))
-
     data_path = Path(args.data)
     if not data_path.is_file():
         print(f"Dataset not found: {data_path}", file=sys.stderr)
         sys.exit(1)
 
-    print(f"Placeholder - dataset: {data_path}, output directory: {args.out}")
+    df = load_data(data_path)
+    X_train, X_test, y_train, y_test = prepare_data(df)
+    model = train_model(X_train, y_train)
+    evaluate(model, X_test, y_test, Path(args.out))
 
-if __name__ == "__main__":
+
+if __name__ == "__main__":  # pragma: no cover - entry point
     main()
