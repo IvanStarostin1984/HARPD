@@ -31,6 +31,7 @@ Copy
 
 *Feel free to adjust directory names if a clearer structure emerges, but keep the dataset path accurate (`data/…csv`).*
 
+Status (2025-07-07): setup script and requirements created. Next: implement pipeline skeleton in src/heart_attack_prediction.py.
 ---
 
 ## 1  Environment
@@ -79,3 +80,6 @@ Copy
 
 ## 6  Out‑of‑scope for this Codex run
 Slides and the written report will be produced manually by the Presentation and Documentation roles.
+
+## Completed tasks
+* [x] CLI skeleton parses dataset and output path, prints placeholder.
