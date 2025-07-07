@@ -31,7 +31,7 @@ Copy
 
 *Feel free to adjust directory names if a clearer structure emerges, but keep the dataset path accurate (`data/…csv`).*
 
-Status (2025-07-07): setup script and requirements created. Next: implement pipeline skeleton in src/heart_attack_prediction.py.
+Status (2025-07-07): added dataset existence check in the CLI script. Next: flesh out the pipeline logic.
 ---
 
 ## 1  Environment
@@ -84,3 +84,4 @@ Slides and the written report will be produced manually by the Presentation and 
 
 ## Completed tasks
 * [x] CLI skeleton parses dataset and output path, prints placeholder.
+* [x] CLI exits with a clear message when the dataset file is missing.
