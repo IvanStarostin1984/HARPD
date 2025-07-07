@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
-if [ -f requirements.txt ]; then
-    pip install -r requirements.txt
-fi
 
-echo "Setup complete"
+if [ -f requirements.txt ]; then
+  pip install -r requirements.txt
+fi
