@@ -2,6 +2,9 @@
   `README.md` to note the dataset must be added manually and provide a one-line
   quick start command.
 
+- 2025-07-07: Updated AGENTS.md shell block to mention that 
+`.codex/setup.sh` installs packages from `requirements.txt` and created this script.
+
 - 2025-07-07: Added .codex/setup.sh and requirements.txt to install pandas,
  scikit-learn, and matplotlib. Reason: create base environment 
  as described in TODO setup stage.

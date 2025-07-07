@@ -9,7 +9,7 @@ that actively steer the agent.
 ## 1  Quick health‑check (runs each iteration)
 
 shell: |
-  # 1. Ensure the environment is ready (idempotent).
+  # 1. Set up Python environment (installs `requirements.txt` if present).
   bash .codex/setup.sh
 
   # 2. Execute the end‑to‑end pipeline.
@@ -47,7 +47,7 @@ shell: |
 | `src/heart_attack_prediction.py`            | End‑to‑end ML pipeline *you may decide to break it into several files)                  |
 | `data/heart_attack_prediction_dataset.csv`  | Raw dataset (read‑only)                 |
 | `outputs/`                                  | Metrics, plots, confusion matrix        |
-| `.codex/setup.sh`                           | Dependency installation                 |
+| `.codex/setup.sh`                           | Install packages from `requirements.txt` |
 | `README.md`                                 | Quick‑start instructions                |
 | `TODO.md` / `NOTES.md`                      | Work plan / engineering log (append‑only)|
 Original_assignment.md and .csv dataset are single sources of truth and are not to be changed.
