@@ -15,3 +15,5 @@ Reason: initial CLI entry point per TODO.
 * 2025-07-08: Implemented preprocessing, train-test split with stratification,
   logistic regression model, metrics output, confusion matrix saving and tests.
   Reason: finish core pipeline per TODO and ensure quality with pytest.
+* 2025-07-07: Implemented logistic regression pipeline and added tests with synthetic dataset to verify metrics and confusion matrix output.
+* 2025-07-07: heart_attack_prediction.py exits with an error when the dataset file is missing. Updated README and AGENTS accordingly.
