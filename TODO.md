@@ -28,6 +28,7 @@ Copy
 
 *Feel free to adjust directory names if a clearer structure emerges, but keep the dataset path accurate (`data/…csv`).*
 
+Status (2025-07-07): setup script and requirements created. Next: implement pipeline skeleton in src/heart_attack_prediction.py.
 ---
 
 ## 1  Environment
