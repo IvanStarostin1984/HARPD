@@ -23,6 +23,9 @@ Codex should create this lightweight scaffold **before** writing any business lo
 │ └── original_assignment.md # read‑only source of truth
 └── README.md # quick‑start instructions
 
+*Data and outputs directories have been created with `.gitkeep`. The dataset
+file must be supplied manually as `data/heart_attack_prediction_dataset.csv`.*
+
 yaml
 Copy
 
