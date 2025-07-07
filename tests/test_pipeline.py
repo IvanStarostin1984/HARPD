@@ -23,7 +23,7 @@ def test_pipeline(tmp_path: Path) -> None:
     out_dir = tmp_path / "out"
     result = subprocess.run(
         [
-            "python",
+            sys.executable,
             "src/heart_attack_prediction.py",
             "--data",
             str(csv_path),

@@ -1,3 +1,7 @@
+"""Run a logistic regression pipeline on the heart attack dataset."""
+
+from __future__ import annotations
+
 import argparse
 import sys
 from pathlib import Path
@@ -5,8 +9,6 @@ from typing import Tuple
 
 import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     ConfusionMatrixDisplay,
@@ -76,6 +78,7 @@ def evaluate(
     model: Pipeline, X_test: pd.DataFrame, y_test: pd.Series, out_dir: Path
 ) -> None:
     """Print metrics and save confusion matrix."""
+
     preds = model.predict(X_test)
     acc = accuracy_score(y_test, preds)
     prec = precision_score(y_test, preds, zero_division=0)
@@ -90,6 +93,7 @@ def evaluate(
     ConfusionMatrixDisplay.from_predictions(y_test, preds)
     plt.tight_layout()
     fig_path = out_dir / "confusion_matrix.png"
+    plt.tight_layout()
     plt.savefig(fig_path)
     plt.close()
 
