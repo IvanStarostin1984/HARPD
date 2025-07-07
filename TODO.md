@@ -84,3 +84,4 @@ Slides and the written report will be produced manually by the Presentation and 
 
 ## Completed tasks
 * [x] CLI skeleton parses dataset and output path, prints placeholder.
+* [x] Renamed docs/original_assignment to docs/original_assignment.md and updated references.
